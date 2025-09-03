@@ -1,1 +1,1 @@
-# l-gica-mat-python3
+# logica-mat-python3
