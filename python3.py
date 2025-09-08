@@ -26,9 +26,9 @@ def neg_valores_logicos():
 def normal_caracteres(proposicao):
     for i in range (len(proposicao)):
         if proposicao[i] == '^' or proposicao[i] == '^' or proposicao[i] == 'ˆ':
-            operador = op_and
-        elif proposicao[i].lower == 'v' or proposicao[i] == 'ˇ':
-            operador = op_or
+            operador == op_and
+        elif proposicao[i].lower() == 'v' or proposicao[i] == 'ˇ':
+            operador == op_or
         elif proposicao[i] == '-':
             if proposicao[i+1] == '>':
                 operador == op_imp
@@ -38,3 +38,30 @@ def normal_caracteres(proposicao):
                     operador == op_bicond
         else:
             return None
+
+def extrair_operador(proposicao):
+    i = 0
+    while i < len(proposicao):
+        if i + 2 < len(proposicao) and proposicao[i:i+3] == "<->":
+            operador = op_bicond
+            esquerda = proposicao[:i]
+            direita = proposicao[i+3:]
+            return esquerda, operador, direita
+        elif i + 1 < len(proposicao) and proposicao[i:i+2] == "->":
+            operador = op_imp
+            esquerda = proposicao[:i]
+            direita = proposicao[i+2:]
+            return esquerda, operador, direita
+        elif proposicao[i] == "^":
+            operador = op_and
+            esquerda = proposicao[:i]
+            direita = proposicao[i+1:]
+            return esquerda, operador, direita
+        elif proposicao[i] == "v":
+            operador = op_or
+            esquerda = proposicao[:i]
+            direita = proposicao[i+1:]
+            return esquerda, operador, direita
+        i += 1
+
+    return "Formato inválido!!!"
